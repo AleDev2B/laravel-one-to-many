@@ -17,11 +17,18 @@ class EmployeeController extends Controller
     }
     public function edit($id){
       $employee = Employee::findOrFail($id);
-      return view('employee-edit' , compact('employee'));
+      return view('edit-employee' , compact('employee'));
     }
-    public function update($id){
-      $employee = Employee::findOrFail($id);
-      return view('show' , compact('employee'));
+    public function update(Request $request, $id ){
+
+    $validateData = $request -> validate([
+      'firstname' => 'required',
+      'lastname' => 'required',
+      'dateOfBirth' => 'required',
+      'role' => 'required',
+    ]);
+
+  dd($validateData);
     }
 
 

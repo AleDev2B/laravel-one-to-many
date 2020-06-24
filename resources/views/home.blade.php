@@ -1,6 +1,9 @@
 @extends('Layout.mainLayout')
 
 @section('content')
+  @if (session('success'))
+    <h2>{{session('success')}}</h2>
+  @endif
 
 <h1>IMPIEGATI</h1>
 <ul>

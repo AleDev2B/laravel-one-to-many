@@ -19,17 +19,34 @@ class EmployeeController extends Controller
       $employee = Employee::findOrFail($id);
       return view('edit-employee' , compact('employee'));
     }
-    public function update(Request $request, $id ){
 
+    public function update(Request $request, $id ){
     $validateData = $request -> validate([
-      'firstname' => 'required',
-      'lastname' => 'required',
-      'dateOfBirth' => 'required',
-      'role' => 'required',
+      'firstname' => 'required|alpha',
+      'lastname' => 'required|alpha',
+      'dateOfBirth' => 'required|date',
+      'role' => 'required|string',
     ]);
 
-  dd($validateData);
+    $employee = Employee::findOrFail($id);
+    $employee ->  firstname = $validateData['firstname'];
+    $employee ->  lastname = $validateData['lastname'];
+    $employee ->  dateOfBirth = $validateData['dateOfBirth'];
+    $employee ->  role = $validateData['role'];
+
+    $employee -> save();
+    return redirect() -> route('show', $id)
+                      -> withSuccess('Updated'
+                      .$employee['firstname']
+                      .'modifica effettuata con successo!!!');
     }
 
+    public function destroy($id){
+    $employee = Employee::findOrFail($id);
+    $employee -> delete();
+    return redirect() -> route('home')
+                      -> withSuccess($employee['firstname']
+                      .'modifica effettuata con successo!!!');
+    }
 
 }

@@ -15,6 +15,14 @@ class EmployeeController extends Controller
       $employee = Employee::findOrFail($id);
       return view('show' , compact('employee'));
     }
+    public function edit($id){
+      $employee = Employee::findOrFail($id);
+      return view('employee-edit' , compact('employee'));
+    }
+    public function update($id){
+      $employee = Employee::findOrFail($id);
+      return view('show' , compact('employee'));
+    }
 
 
 }
